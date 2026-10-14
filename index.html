@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>FiMa Invasives — Importer, Exporter &amp; Reseller</title>
+  <meta name="description"
+        content="FiMa Invasives supplies interventional devices, stents, catheters, guidewires and consumables from Dhaka, Bangladesh.">
+  <meta property="og:title"
+        content="FiMa Invasives — Importer, Exporter &amp; Reseller">
+  <meta property="og:description"
+        content="Items for invasive procedures, supplied from Dhaka, Bangladesh.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #1d3e7a;
+      --teal: #10847e;
+      --cream: #f2e2c4;
+      --paper: #fcf9f2;
+      --white: #fff;
+      --ink: #24344c;
+      --muted: #536278;
+      --border: #ddd5c5;
+      --shadow: 0 12px 30px -18px #1d3e7a66;
+      --overlay: #17283db3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.65 "Nunito Sans", sans-serif;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: Montserrat, sans-serif;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button, a, input, textarea {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 4px;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .wrap {
+      width: min(1152px, 100% - 40px);
+      margin-inline: auto;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 20px;
+      min-height: 76px;
+    }
+
+    .logo {
+      width: 125px;
+      max-width: 100%;
+      max-height: 52px;
+      object-fit: contain;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .desktop-nav > a:hover {
+      color: var(--teal);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 10px 22px;
+      border: 0;
+      border-radius: 6px;
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--navy);
+      color: var(--navy);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--navy);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .mobile-nav {
+      border-top: 1px solid var(--border);
+      padding: 12px 0 18px;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 12px 0;
+      font-weight: 700;
+    }
+
+    .mobile-nav .btn {
+      padding: 10px 20px;
+      margin-top: 8px;
+    }
+
+    /* Main introduction */
+    .hero {
+      background: var(--cream);
+      padding: 64px 0;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      align-items: center;
+      gap: 44px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero h1 {
+      font-size: 54px;
+      color: var(--navy);
+    }
+
+    .hero h1 span {
+      color: var(--teal);
+    }
+
+    .subtitle {
+      margin: 18px 0 8px;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .hero-logo {
+      width: 100%;
+      max-width: 350px;
+      margin-inline: auto;
+    }
+
+    /* Sections */
+    section {
+      padding: 72px 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 48px;
+      align-items: center;
+    }
+
+    .about-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    h2 {
+      font-size: 34px;
+      color: var(--navy);
+    }
+
+    .director {
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+      padding-top: 20px;
+    }
+
+    .director strong {
+      display: block;
+      color: var(--navy);
+      font-size: 19px;
+    }
+
+    .band {
+      background: var(--cream);
+    }
+
+    .section-heading {
+      text-align: center;
+    }
+
+    /* Products */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .product {
+      background: var(--white);
+      padding: 26px 16px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .product-symbol {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border: 2px solid var(--teal);
+      border-radius: 50%;
+      margin: 0 auto 18px;
+      color: var(--navy);
+      font-size: 28px;
+    }
+
+    .product h3 {
+      font-size: 15px;
+      color: var(--navy);
+    }
+
+    /* Sister concerns */
+    .concerns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .concern {
+      min-width: 0;
+      min-height: 260px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .concern img {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .concern-label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 14px;
+    }
+
+    .fionaz {
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      background: var(--navy);
+      color: var(--white);
+      isolation: isolate;
+    }
+
+    .fionaz img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: left;
+      z-index: -1;
+    }
+
+    .fionaz .name {
+      font-family: Montserrat, sans-serif;
+      display: block;
+      font-size: 42px;
+      letter-spacing: 3px;
+    }
+
+    .fionaz .tag {
+      display: block;
+      letter-spacing: 3px;
+      margin-top: 6px;
+    }
+
+    .fionaz .concern-label {
+      color: var(--white);
+      margin-top: 28px;
+    }
+
+    /* Contact */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px;
+      margin-top: 36px;
+      align-items: start;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--ink);
+      padding: 12px 14px;
+      border-radius: 6px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 145px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-item {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--navy);
+    }
+
+    .contact-item a {
+      color: var(--muted);
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer and dialog */
+    .footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 26px 0;
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer p {
+      margin: 0;
+    }
+
+    dialog {
+      width: min(380px, 100% - 32px);
+      border: 0;
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    dialog::backdrop {
+      background: var(--overlay);
+    }
+
+    dialog h2 {
+      font-size: 24px;
+    }
+
+    dialog form {
+      margin-top: 24px;
+    }
+
+    /* Tablet */
+    @media (max-width: 1000px) {
+      .products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .desktop-nav {
+        gap: 20px;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      .wrap {
+        width: calc(100% - 32px);
+      }
+
+      .header-row {
+        min-height: 68px;
+      }
+
+      .logo {
+        width: 110px;
+        max-height: 44px;
+      }
+
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: grid;
+        place-items: center;
+      }
+
+      .hero {
+        padding: 36px 0;
+      }
+
+      .hero-layout,
+      .two-col,
+      .contact-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      .hero-layout > div {
+        min-width: 0;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .hero-logo {
+        max-width: 210px;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .actions .btn {
+        padding: 10px 8px;
+        font-size: 14px;
+      }
+
+      section {
+        padding: 48px 0;
+      }
+
+      h2 {
+        font-size: 27px;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .product {
+        padding: 22px 12px;
+      }
+
+      .product:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .concerns {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+      }
+
+      .concern {
+        min-height: 220px;
+        padding: 24px;
+      }
+
+      .fionaz .name {
+        font-size: 34px;
+      }
+
+      .contact-layout {
+        margin-top: 28px;
+      }
+
+      .footer-row {
+        display: grid;
+        gap: 8px;
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <header class="header">
+    <div class="wrap header-row">
+      <a href="#top" aria-label="FiMa Invasives home">
+        <img
+          class="logo"
+          src="https://pixel-guardian-kit.lovable.app/__l5e/assets-v1/db5bb59c-7896-4b8b-8357-c721e539847a/fima-logo.png"
+          alt="FiMa Invasives">
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#concerns">Our Concerns</a>
+        <a class="btn" href="#contact">Contact Us</a>
+      </nav>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav">☰</button>
+    </div>
+
+    <nav
+      class="wrap mobile-nav"
+      id="mobile-nav"
+      aria-label="Mobile navigation"
+      hidden>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#concerns">Our Concerns</a>
+      <a class="btn" href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-layout">
+        <div>
+          <p class="eyebrow">Dhaka, Bangladesh</p>
+          <h1>FiMa <span>Invasives</span></h1>
+          <p class="subtitle">Importer, Exporter &amp; Reseller</p>
+          <p class="muted">
+            For all kinds of items for invasive procedures.
+          </p>
+
+          <div class="actions">
+            <a class="btn" href="#products">Our Products →</a>
+            <a class="btn btn-outline" href="tel:+8801715600400">
+              Call Now
+            </a>
+          </div>
+        </div>
+
+        <img
+          class="hero-logo"
+          src="https://pixel-guardian-kit.lovable.app/__l5e/assets-v1/db5bb59c-7896-4b8b-8357-c721e539847a/fima-logo.png"
+          alt="FiMa Invasives logo">
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap two-col">
+        <img
+          class="about-image"
+          src="https://pixel-guardian-kit.lovable.app/assets/about-medical-BO1B2G8E.jpg"
+          alt="Interventional devices in a cath lab"
+          width="1280"
+          height="960"
+          loading="lazy">
+
+        <div>
+          <p class="eyebrow">About Us</p>
+          <h2>A young, dynamic and fast growing company</h2>
+          <p class="muted">
+            FiMa Invasives is an importer, exporter and reseller of
+            items for invasive procedures, based in Dhaka. We supply
+            interventional devices, consumables, stents, catheters
+            and guidewires.
+          </p>
+
+          <div class="director">
+            <strong>Dr. AKM Noor</strong>
+            <span class="muted">Managing Director</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="products">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">Our Products</p>
+          <h2>Everything for invasive procedures</h2>
+        </div>
+
+        <div class="products">
+          <article class="product">
+            <span class="product-symbol" aria-hidden="true">⌁</span>
+            <h3>Interventional Devices</h3>
+          </article>
+
+          <article class="product">
+            <span class="product-symbol" aria-hidden="true">✚</span>
+            <h3>Procedural Consumables</h3>
+          </article>
+
+          <article class="product">
+            <span class="product-symbol" aria-hidden="true">▱</span>
+            <h3>Stents &amp; Accessories</h3>
+          </article>
+
+          <article class="product">
+            <span class="product-symbol" aria-hidden="true">∿</span>
+            <h3>Catheters &amp; Guidewires</h3>
+          </article>
+
+          <article class="product">
+            <span class="product-symbol" aria-hidden="true">▣</span>
+            <h3>Other Invasive Items</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="concerns">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">Our Concerns</p>
+          <h2>Sister concerns</h2>
+        </div>
+
+        <div class="concerns">
+          <button
+            class="concern"
+            type="button"
+            data-concern="CIPI BD">
+            <img
+              src="https://pixel-guardian-kit.lovable.app/__l5e/assets-v1/4bc188f2-bfab-49ef-9b20-f57f242ac98e/cipi-logo.png"
+              alt="CIPI BD logo"
+              loading="lazy">
+            <span class="concern-label">Visit website →</span>
+          </button>
+
+          <button
+            class="concern fionaz"
+            type="button"
+            data-concern="Fiona'z Trimmings">
+            <img
+              src="https://pixel-guardian-kit.lovable.app/__l5e/assets-v1/676bc585-a0fb-4581-905e-c7d592984e8d/fionaz.webp"
+              alt=""
+              loading="lazy">
+            <span class="name">FIONA'Z</span>
+            <span class="tag">TRIMMINGS</span>
+            <span class="concern-label">Visit website →</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="contact">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">Contact Us</p>
+          <h2>Let's talk</h2>
+        </div>
+
+        <div class="contact-layout">
+          <form class="contact-form" id="contact-form">
+            <label class="field" for="name">
+              Your name
+              <input
+                id="name"
+                name="name"
+                autocomplete="name"
+                maxlength="100"
+                required>
+            </label>
+
+            <label class="field" for="phone">
+              Phone number
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                maxlength="20"
+                required>
+            </label>
+
+            <label class="field" for="message">
+              Your message
+              <textarea
+                id="message"
+                name="message"
+                maxlength="1000"
+                rows="5"
+                required></textarea>
+            </label>
+
+            <button class="btn" type="submit">
+              Send via WhatsApp ↗
+            </button>
+          </form>
+
+          <div class="contact-list">
+            <div class="contact-item">
+              <strong>Address</strong>
+              <a
+                href="https://www.google.com/maps/search/?api=1&amp;query=709%2F9%2C%20Ibrahimpur%2C%20Kafrul%2C%20Dhaka-1206%2C%20Bangladesh"
+                target="_blank"
+                rel="noopener noreferrer">
+                709/9, Ibrahimpur, Kafrul, Dhaka-1206
+              </a>
+            </div>
+
+            <div class="contact-item">
+              <strong>Phone</strong>
+              <a href="tel:+8801715600400">+88 01715 600 400</a>
+              <br>
+              <a href="tel:+8801819484999">+88 01819 484 999</a>
+            </div>
+
+            <div class="contact-item">
+              <strong>WhatsApp</strong>
+              <a
+                href="https://wa.me/8801819484999"
+                target="_blank"
+                rel="noopener noreferrer">
+                +88 01819 484 999
+              </a>
+            </div>
+
+            <div class="contact-item">
+              <strong>Email</strong>
+              <a href="mailto:akmnoor14@gmail.com">
+                akmnoor14@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <p>
+        © <span id="year">2026</span> FiMa Invasives.
+        All rights reserved.
+      </p>
+      <p>709/9, Ibrahimpur, Kafrul, Dhaka-1206</p>
+    </div>
+  </footer>
+
+  <dialog id="concern-dialog" aria-labelledby="dialog-title">
+    <h2 id="dialog-title"></h2>
+    <p class="muted">Website coming soon</p>
+    <form method="dialog">
+      <button class="btn">Close</button>
+    </form>
+  </dialog>
+
+  <script>
+    // Mobile navigation
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-nav");
+
+    function closeMenu() {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+      toggle.textContent = "☰";
+    }
+
+    toggle.addEventListener("click", () => {
+      const opening = menu.hidden;
+
+      menu.hidden = !opening;
+      toggle.setAttribute("aria-expanded", String(opening));
+      toggle.setAttribute(
+        "aria-label",
+        opening ? "Close menu" : "Open menu"
+      );
+      toggle.textContent = opening ? "×" : "☰";
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    window.matchMedia("(min-width:768px)")
+      .addEventListener("change", closeMenu);
+
+    // Sister concern dialog
+    const dialog = document.getElementById("concern-dialog");
+
+    document.querySelectorAll("[data-concern]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("dialog-title").textContent =
+          button.dataset.concern;
+        dialog.showModal();
+      });
+    });
+
+    dialog.addEventListener("click", (event) => {
+      const bounds = dialog.getBoundingClientRect();
+
+      if (
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom
+      ) {
+        dialog.close();
+      }
+    });
+
+    // Open WhatsApp with the completed contact message
+    document.getElementById("contact-form")
+      .addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const values = new FormData(event.currentTarget);
+        const text =
+          `Hello FiMa Invasives,\n` +
+          `Name: ${values.get("name")}\n` +
+          `Phone: ${values.get("phone")}\n\n` +
+          values.get("message");
+
+        window.open(
+          "https://wa.me/8801819484999?text=" +
+            encodeURIComponent(text),
+          "_blank",
+          "noopener,noreferrer"
+        );
+      });
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
