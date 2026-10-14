@@ -14,4 +14,10 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("registers index route in routeTree", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    const route = router.routesByPath["/"];
+    expect(route).toBeDefined();
+  });
 });
